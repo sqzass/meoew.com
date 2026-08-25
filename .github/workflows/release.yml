@@ -40,13 +40,19 @@ jobs:
             - name: Build
               run: pnpm build
 
-            # unsigned / unpublished local-style build;
-            # artifacts are attached to the release below instead of via electron-builder
-            - name: Package (${{ matrix.platform }})
-              run: >
-                  pnpm electron-builder --${{ matrix.platform }} --publish never
-                  -c.mac.notarize=false
-                  -c.mac.identity=null
+            # mac flags live only on the mac step: powershell mangles
+            # dot-prefixed args. artifacts are attached to the release below.
+            - name: Package (linux)
+              if: matrix.platform == 'linux'
+              run: pnpm electron-builder --linux --publish never
+
+            - name: Package (windows)
+              if: matrix.platform == 'windows'
+              run: pnpm electron-builder --windows --publish never
+
+            - name: Package (mac)
+              if: matrix.platform == 'mac'
+              run: pnpm electron-builder --mac --publish never -c.mac.notarize=false -c.mac.identity=null
 
             - name: Attach artifacts to release (linux)
               if: matrix.platform == 'linux'
