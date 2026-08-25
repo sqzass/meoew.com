@@ -1,14 +1,14 @@
 {
     "name": "meoew",
-    "version": "0.1.2-alpha",
+    "version": "0.1.3-alpha",
     "private": true,
     "description": "meoew.com, the only mod you'll need.",
     "keywords": [],
     "homepage": "https://meoew.pages.dev",
     "license": "GPL-3.0-or-later",
     "repository": {
-    "type": "git",
-    "url": "https://github.com/sqzass/meoew.com.git"
+        "type": "git",
+        "url": "https://github.com/sqzass/meoew.com.git"
     },
     "author": "sqzass, yungpharaoh, ghxstprey",
     "main": "dist/js/main.js",
@@ -64,7 +64,7 @@
         "typescript-eslint": "^8.67.0",
         "xml-formatter": "^3.6.7"
     },
-    "packageManager": "pnpm@11.9.0",
+    "packageManager": "pnpm@11.24.0",
     "engines": {
         "node": ">=22",
         "pnpm": ">=11"
