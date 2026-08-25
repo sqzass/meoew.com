@@ -1,0 +1,74 @@
+name: Build All Platforms
+
+on:
+    push:
+        branches:
+            - main
+    workflow_dispatch:
+
+jobs:
+    build:
+        strategy:
+            fail-fast: false
+            matrix:
+                os: [macos-latest, ubuntu-latest, windows-latest]
+                include:
+                    - os: macos-latest
+                      platform: mac
+                    - os: ubuntu-latest
+                      platform: linux
+                    - os: windows-latest
+                      platform: windows
+
+        runs-on: ${{ matrix.os }}
+
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Install pnpm
+              uses: pnpm/action-setup@v4
+
+            - name: Use Node.js 24
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 24
+                  cache: pnpm
+
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
+
+            - name: Build
+              run: pnpm build
+
+            # publish=null skips auto-update metadata generation,
+            # notarize/identity disabled since we have no Apple certs.
+            - name: Package (${{ matrix.platform }})
+              run: >
+                  pnpm electron-builder --${{ matrix.platform }} --publish never
+                  -c.publish=null
+                  -c.mac.notarize=false
+                  -c.mac.identity=null
+
+            - name: Upload artifacts (linux)
+              if: matrix.platform == 'linux'
+              uses: actions/upload-artifact@v4
+              with:
+                  name: meoew-linux
+                  path: |
+                      dist/*.AppImage
+                      dist/*.tar.gz
+                      dist/*.deb
+
+            - name: Upload artifacts (windows)
+              if: matrix.platform == 'windows'
+              uses: actions/upload-artifact@v4
+              with:
+                  name: meoew-windows
+                  path: dist/*.exe
+
+            - name: Upload artifacts (mac)
+              if: matrix.platform == 'mac'
+              uses: actions/upload-artifact@v4
+              with:
+                  name: meoew-mac
+                  path: dist/*.dmg

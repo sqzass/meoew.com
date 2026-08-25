@@ -1,0 +1,80 @@
+name: Release
+
+on:
+    push:
+        tags:
+            - v*
+    workflow_dispatch:
+
+jobs:
+    release:
+        runs-on: ${{ matrix.os }}
+
+        strategy:
+            fail-fast: false
+            matrix:
+                os: [macos-latest, ubuntu-latest, windows-latest]
+                include:
+                    - os: macos-latest
+                      platform: mac
+                    - os: ubuntu-latest
+                      platform: linux
+                    - os: windows-latest
+                      platform: windows
+
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Install pnpm
+              uses: pnpm/action-setup@v4
+
+            - name: Use Node.js 24
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 24
+                  cache: pnpm
+
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
+
+            - name: Build
+              run: pnpm build
+
+            # unsigned / unpublished local-style build;
+            # artifacts are attached to the release below instead of via electron-builder
+            - name: Package (${{ matrix.platform }})
+              run: >
+                  pnpm electron-builder --${{ matrix.platform }} --publish never
+                  -c.publish=null
+                  -c.mac.notarize=false
+                  -c.mac.identity=null
+
+            - name: Attach artifacts to release (linux)
+              if: matrix.platform == 'linux'
+              uses: softprops/action-gh-release@v2
+              with:
+                  files: |
+                      dist/*.AppImage
+                      dist/*.tar.gz
+                      dist/*.deb
+                      dist/*.rpm
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Attach artifacts to release (windows)
+              if: matrix.platform == 'windows'
+              uses: softprops/action-gh-release@v2
+              with:
+                  files: dist/*.exe
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Attach artifacts to release (mac)
+              if: matrix.platform == 'mac'
+              uses: softprops/action-gh-release@v2
+              with:
+                  files: |
+                      dist/*.dmg
+                      dist/*.zip
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

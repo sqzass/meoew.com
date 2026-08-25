@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+    <!--
+        meoew.com splash: static angular M, halo bobs gently,
+        a spark orbits the halo ring to indicate loading.
+        adapts to light/dark via prefers-color-scheme.
+    -->
+    <style>
+        .ink { stroke: #16150f; }
+        @media (prefers-color-scheme: dark) {
+            .ink { stroke: #e6e3da; }
+        }
+    </style>
+
+    <!-- gentle vertical bob for halo + orbiting spark -->
+    <g>
+        <animateTransform
+            attributeName="transform"
+            type="translate"
+            values="0 0; 0 -6; 0 0"
+            dur="3.2s"
+            repeatCount="indefinite"
+            calcMode="spline"
+            keySplines="0.45 0 0.55 1; 0.45 0 0.55 1"
+        />
+
+        <g transform="rotate(-6 256 96)">
+            <!-- halo ring -->
+            <ellipse class="ink" cx="256" cy="96" rx="114" ry="34"
+                     fill="none" stroke-width="30"/>
+
+            <!-- loading spark orbiting the ring -->
+            <circle r="15" fill="#d43a3f">
+                <animateMotion
+                    dur="1.9s"
+                    repeatCount="indefinite"
+                    path="M 370 96 A 114 34 0 1 1 142 96 A 114 34 0 1 1 370 96 Z"
+                />
+            </circle>
+        </g>
+    </g>
+
+    <!-- the M: completely still -->
+    <path class="ink" fill="none" stroke-linecap="square" stroke-linejoin="bevel" stroke-width="56"
+          d="M 84 414 L 172 172 L 256 386 L 340 172 L 428 414"/>
+    <!-- easter egg: Y tail + A crossbars -->
+    <path class="ink" fill="none" stroke-linecap="butt" stroke-width="50" d="M 256 380 L 256 468"/>
+    <path class="ink" fill="none" stroke-linecap="butt" stroke-width="32" d="M 138 285 L 210 285"/>
+    <path class="ink" fill="none" stroke-linecap="butt" stroke-width="32" d="M 302 285 L 374 285"/>
+</svg>

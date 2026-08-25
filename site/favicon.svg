@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+    <title>Meoew.com</title>
+    <g fill="none" stroke="#0e0e10">
+        <!-- angular /\/\ M -->
+        <path d="M 84 414 L 172 172 L 256 386 L 340 172 L 428 414"
+              stroke-width="56" stroke-linecap="square" stroke-linejoin="bevel"/>
+        <!-- easter egg: Y stem hanging from the middle valley, pokes just past the baseline -->
+        <path d="M 256 380 L 256 468" stroke-width="50" stroke-linecap="butt"/>
+        <!-- easter egg: hidden A crossbars on each peak -->
+        <path d="M 138 285 L 210 285" stroke-width="32" stroke-linecap="butt"/>
+        <path d="M 302 285 L 374 285" stroke-width="32" stroke-linecap="butt"/>
+        <!-- halo -->
+        <ellipse cx="256" cy="96" rx="114" ry="34"
+                 transform="rotate(-6 256 96)" stroke-width="30"/>
+    </g>
+</svg>
