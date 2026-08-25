@@ -53,7 +53,7 @@ export async function initTray(win: BrowserWindow, setIsQuitting: (val: boolean)
             click: createAboutWindow
         },
         {
-            label: "Repair Vencord",
+            label: "Repair Doiksub",
             async click() {
                 await downloadVencordFiles();
                 app.relaunch();
@@ -61,7 +61,7 @@ export async function initTray(win: BrowserWindow, setIsQuitting: (val: boolean)
             }
         },
         {
-            label: "Reset Meoew.com",
+            label: "Factory-Reset meoew.com",
             async click() {
                 await clearData(win);
             }
