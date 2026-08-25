@@ -93,7 +93,7 @@ jobs:
                   body: |
                       automated grab-and-go build of main (${{ github.sha }}).
 
-                      overwritten on every push. may be unstable — that's the deal.
+                      overwritten on every push.
                   make_latest: true
                   fail_on_unmatched_files: true
                   files: dist-all/**/*
