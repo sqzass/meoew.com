@@ -6,6 +6,9 @@ on:
             - main
     workflow_dispatch:
 
+permissions:
+    contents: write
+
 jobs:
     build:
         strategy:
@@ -15,10 +18,13 @@ jobs:
                 include:
                     - os: macos-latest
                       platform: mac
+                      artifact: meoew-mac
                     - os: ubuntu-latest
                       platform: linux
+                      artifact: meoew-linux
                     - os: windows-latest
                       platform: windows
+                      artifact: meoew-windows
 
         runs-on: ${{ matrix.os }}
 
@@ -41,8 +47,7 @@ jobs:
               run: pnpm build
 
             # mac flags live only on the mac step: powershell mangles
-            # dot-flag args, and linux/windows don't need them anyway.
-            # notarize/identity disabled: no Apple certs on CI runners.
+            # dot-prefixed args. notarize/identity disabled: no Apple certs.
             - name: Package (linux)
               if: matrix.platform == 'linux'
               run: pnpm electron-builder --linux --publish never
@@ -55,26 +60,40 @@ jobs:
               if: matrix.platform == 'mac'
               run: pnpm electron-builder --mac --publish never -c.mac.notarize=false -c.mac.identity=null
 
-            - name: Upload artifacts (linux)
-              if: matrix.platform == 'linux'
+            - name: Upload artifacts
               uses: actions/upload-artifact@v4
               with:
-                  name: meoew-linux
+                  name: ${{ matrix.artifact }}
                   path: |
                       dist/*.AppImage
                       dist/*.tar.gz
                       dist/*.deb
+                      dist/*.rpm
+                      dist/*.exe
+                      dist/*.zip
+                      dist/*.dmg
+                  if-no-files-found: error
 
-            - name: Upload artifacts (windows)
-              if: matrix.platform == 'windows'
-              uses: actions/upload-artifact@v4
-              with:
-                  name: meoew-windows
-                  path: dist/*.exe
+    # single publisher avoids three jobs racing on one release
+    nightly:
+        needs: build
+        runs-on: ubuntu-latest
 
-            - name: Upload artifacts (mac)
-              if: matrix.platform == 'mac'
-              uses: actions/upload-artifact@v4
+        steps:
+            - name: Download all artifacts
+              uses: actions/download-artifact@v4
               with:
-                  name: meoew-mac
-                  path: dist/*.dmg
+                  path: dist-all
+
+            - name: Publish to nightly release
+              uses: softprops/action-gh-release@v2
+              with:
+                  tag_name: nightly
+                  name: nightly
+                  body: |
+                      automated grab-and-go build of main (${{ github.sha }}).
+
+                      overwritten on every push. may be unstable — that's the deal.
+                  make_latest: true
+                  fail_on_unmatched_files: true
+                  files: dist-all/**/*
