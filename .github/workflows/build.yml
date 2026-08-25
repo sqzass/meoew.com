@@ -40,12 +40,10 @@ jobs:
             - name: Build
               run: pnpm build
 
-            # publish=null skips auto-update metadata generation,
-            # notarize/identity disabled since we have no Apple certs.
+            # notarize/identity disabled: no Apple certs on CI runners.
             - name: Package (${{ matrix.platform }})
               run: >
                   pnpm electron-builder --${{ matrix.platform }} --publish never
-                  -c.publish=null
                   -c.mac.notarize=false
                   -c.mac.identity=null
 

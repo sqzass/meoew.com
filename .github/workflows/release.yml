@@ -45,7 +45,6 @@ jobs:
             - name: Package (${{ matrix.platform }})
               run: >
                   pnpm electron-builder --${{ matrix.platform }} --publish never
-                  -c.publish=null
                   -c.mac.notarize=false
                   -c.mac.identity=null
 
