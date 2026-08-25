@@ -83,7 +83,8 @@ const SettingsOptions: Record<string, Array<BooleanSetting | SettingsComponent>>
         {
             key: "enableSplashScreen",
             title: "Enable Splash Screen",
-            description: "Shows a small splash screen while Meoew.com is loading. Disabling this option will show the main window earlier while it's still loading."
+            description:
+                "Shows a small splash screen while Meoew.com is loading. Disabling this option will show the main window earlier while it's still loading."
         },
         {
             key: "splashTheming",
