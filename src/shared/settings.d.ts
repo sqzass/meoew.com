@@ -66,6 +66,7 @@ export interface State {
     linuxAutoStartEnabled?: boolean;
 
     vencordDir?: string;
+    vencordVersion?: string;
 
     updater?: {
         ignoredVersion?: string;

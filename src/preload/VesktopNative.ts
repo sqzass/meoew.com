@@ -29,12 +29,13 @@ ipcRenderer.on(IpcEvents.DEVTOOLS_CLOSED, () => onDevtoolsClose());
 export const VesktopNative = {
     app: {
         relaunch: () => invoke<void>(IpcEvents.RELAUNCH),
-        getVersion: () => sendSync<void>(IpcEvents.GET_VERSION),
+        getVersion: () => sendSync<string>(IpcEvents.GET_VERSION),
         setBadgeCount: (count: number) => invoke<void>(IpcEvents.SET_BADGE_COUNT, count),
         supportsWindowsTransparency: () => sendSync<boolean>(IpcEvents.SUPPORTS_WINDOWS_TRANSPARENCY),
         getEnableHardwareAcceleration: () => sendSync<boolean>(IpcEvents.GET_ENABLE_HARDWARE_ACCELERATION),
         isOutdated: () => invoke<boolean>(IpcEvents.UPDATER_IS_OUTDATED),
         openUpdater: () => invoke<void>(IpcEvents.UPDATER_OPEN),
+        updateVencord: () => invoke<{ updated: boolean; version: string }>(IpcEvents.CHECK_VENCORD_UPDATE),
         // used by vencord
         getRendererCss: () => invoke<string>(IpcEvents.GET_VESKTOP_RENDERER_CSS),
         onRendererCssUpdate: (cb: (newCss: string) => void) => {

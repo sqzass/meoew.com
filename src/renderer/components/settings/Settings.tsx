@@ -19,6 +19,7 @@ import { DiscordBranchPicker } from "./DiscordBranchPicker";
 import { NotificationBadgeToggle } from "./NotificationBadgeToggle";
 import { OutdatedVesktopWarning } from "./OutdatedVesktopWarning";
 import { UserAssetsButton } from "./UserAssets";
+import { UpdatesButtons } from "./Updates";
 import { VesktopSettingsSwitch } from "./VesktopSettingsSwitch";
 import { WindowsTransparencyControls } from "./WindowsTransparencyControls";
 
@@ -35,6 +36,7 @@ export const cl = classNameFactory("vcd-settings-");
 export type SettingsComponent = ComponentType<{ settings: typeof Settings.store }>;
 
 const SettingsOptions: Record<string, Array<BooleanSetting | SettingsComponent>> = {
+    Updates: [UpdatesButtons],
     "Discord Branch": [DiscordBranchPicker],
     "System Startup & Performance": [
         AutoStartToggle,

@@ -32,7 +32,7 @@ import { Settings, State } from "./settings";
 import { handle, handleSync } from "./utils/ipcWrappers";
 import { PopoutWindows } from "./utils/popout";
 import { isDeckGameMode, showGamePage } from "./utils/steamOS";
-import { isValidVencordInstall } from "./utils/vencordLoader";
+import { isValidVencordInstall, updateVencordFiles } from "./utils/vencordLoader";
 import { VENCORD_FILES_DIR } from "./vencordFilesDir";
 
 handleSync(IpcEvents.GET_VENCORD_PRELOAD_SCRIPT, () =>
@@ -154,6 +154,13 @@ handle(IpcEvents.SELECT_VENCORD_DIR, async (_e, value?: null) => {
     State.store.vencordDir = dir;
 
     return "ok";
+});
+
+handle(IpcEvents.CHECK_VENCORD_UPDATE, async () => {
+    // never overwrite a custom doiksub install the user pointed us at themselves
+    if (State.store.vencordDir) throw new Error("Using a custom doiksub location. Not updating it automatically.");
+
+    return updateVencordFiles();
 });
 
 handle(IpcEvents.SET_BADGE_COUNT, (_, count: number) => setBadgeCount(count));

@@ -7,6 +7,7 @@
 import { mkdirSync } from "fs";
 import { access, constants as FsConstants, writeFile } from "fs/promises";
 import { VENCORD_FILES_DIR } from "main/vencordFilesDir";
+import { State } from "main/settings";
 import { join } from "path";
 
 import { USER_AGENT } from "../constants";
@@ -44,10 +45,9 @@ export async function githubGet(endpoint: string) {
     return fetchie(API_BASE + endpoint, opts, { retryOnNetworkError: true });
 }
 
-export async function downloadVencordFiles() {
-    const release = await githubGet("/repos/ghxstprey/doiksub/releases/latest");
-
-    const { assets }: ReleaseData = await release.json();
+export async function downloadVencordFiles(release?: ReleaseData) {
+    const data = release ?? ((await (await githubGet("/repos/ghxstprey/doiksub/releases/latest")).json()) as ReleaseData);
+    const { assets } = data;
 
     await Promise.all(
         assets
@@ -56,6 +56,31 @@ export async function downloadVencordFiles() {
                 downloadFile(browser_download_url, join(VENCORD_FILES_DIR, name), {}, { retryOnNetworkError: true })
             )
     );
+}
+
+export interface VencordUpdateResult {
+    updated: boolean;
+    version: string;
+}
+
+/**
+ * Checks for a newer doiksub release and downloads it if there is one.
+ * ponytail: the installed version is only tracked from now on; installs made
+ * before this feature have no recorded version, so the first check always
+ * (re-)downloads once to establish a baseline.
+ */
+export async function updateVencordFiles(): Promise<VencordUpdateResult> {
+    const release: ReleaseData = await (await githubGet("/repos/ghxstprey/doiksub/releases/latest")).json();
+    const version = release.tag_name;
+
+    if (State.store.vencordVersion === version && (await isValidVencordInstall(VENCORD_FILES_DIR))) {
+        return { updated: false, version };
+    }
+
+    await downloadVencordFiles(release);
+    State.store.vencordVersion = version;
+
+    return { updated: true, version };
 }
 
 const existsAsync = (path: string) =>
