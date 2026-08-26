@@ -69,7 +69,11 @@ export const UpdatesButtons: SettingsComponent = () => {
             <div className={cl("button-grid")}>
                 <Button onClick={openAppUpdater}>Check for App Updates</Button>
                 <Button disabled={checkingMod || usingCustomVencordDir} onClick={checkForVencordUpdate}>
-                    {checkingMod ? "Checking..." : usingCustomVencordDir ? "Using custom doiksub location" : "Check for doiksub Updates"}
+                    {checkingMod
+                        ? "Checking..."
+                        : usingCustomVencordDir
+                          ? "Using custom doiksub location"
+                          : "Check for doiksub Updates"}
                 </Button>
             </div>
             {usingCustomVencordDir && (

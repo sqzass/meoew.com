@@ -6,8 +6,8 @@
 
 import { mkdirSync } from "fs";
 import { access, constants as FsConstants, writeFile } from "fs/promises";
-import { VENCORD_FILES_DIR } from "main/vencordFilesDir";
 import { State } from "main/settings";
+import { VENCORD_FILES_DIR } from "main/vencordFilesDir";
 import { join } from "path";
 
 import { USER_AGENT } from "../constants";
@@ -46,7 +46,8 @@ export async function githubGet(endpoint: string) {
 }
 
 export async function downloadVencordFiles(release?: ReleaseData) {
-    const data = release ?? ((await (await githubGet("/repos/ghxstprey/doiksub/releases/latest")).json()) as ReleaseData);
+    const data =
+        release ?? ((await (await githubGet("/repos/ghxstprey/doiksub/releases/latest")).json()) as ReleaseData);
     const { assets } = data;
 
     await Promise.all(

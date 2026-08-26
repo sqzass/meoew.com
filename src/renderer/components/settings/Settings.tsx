@@ -18,8 +18,8 @@ import { DeveloperOptionsButton } from "./DeveloperOptions";
 import { DiscordBranchPicker } from "./DiscordBranchPicker";
 import { NotificationBadgeToggle } from "./NotificationBadgeToggle";
 import { OutdatedVesktopWarning } from "./OutdatedVesktopWarning";
-import { UserAssetsButton } from "./UserAssets";
 import { UpdatesButtons } from "./Updates";
+import { UserAssetsButton } from "./UserAssets";
 import { VesktopSettingsSwitch } from "./VesktopSettingsSwitch";
 import { WindowsTransparencyControls } from "./WindowsTransparencyControls";
 
