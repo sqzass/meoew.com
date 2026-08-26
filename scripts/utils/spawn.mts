@@ -10,7 +10,9 @@ import { join } from "path";
 const EXT = process.platform === "win32" ? ".cmd" : "";
 
 const OPTS: SpawnOptions = {
-    stdio: "inherit"
+    stdio: "inherit",
+    // .cmd shims can't be spawned directly since node 18.20+ (CVE-2024-27980) -> EINVAL
+    shell: process.platform === "win32"
 };
 
 export function spawnNodeModuleBin(bin: string, args: string[]) {

@@ -40,6 +40,24 @@ export interface Settings {
 
     spellCheckLanguages?: string[];
 
+    theme?: {
+        /** master switch for the meoew.com look */
+        enabled?: boolean;
+        /** hex accent color used for the red recolor + status glow */
+        accentColor?: string;
+        /** red glow around presence/status indicators */
+        statusGlow?: boolean;
+        /** hide clutter (shop entries, gift button, etc) */
+        declutter?: boolean;
+        /** blend the accent into darker shades behind the app instead of a flat background */
+        gradient?: boolean;
+        /** optional custom top color for the gradient; derived from the accent when unset */
+        gradientColor?: string;
+    };
+
+    /** whether the "new look" prompt has been answered; hides it forever once true */
+    themePromptAnswered?: boolean;
+
     audio?: {
         workaround?: boolean;
 

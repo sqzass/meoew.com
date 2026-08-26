@@ -106,10 +106,13 @@ jobs:
                       don't know which to grab? dw, i got you.
                       for macOS, grab the .dmg (i think, idk i dont use mac)
                       for linux*, grab the .AppImage
-                      -   if you're like me and on a version of Ubuntu (shout out zorin core), then grab .deb
-                      -   others, grab .tar.gz since that's the only one i remember lmfao
                       for windows, grab the .exe
-                      -   'but do i grab arm or amd' always go with AMD unless you're on like windows 7 or something (arm is for older devices).
+
+                      NOTES:
+
+                      WINDOWS: 'but do i grab arm or amd' always go with AMD unless you're on like windows 7 or something (arm is for older devices).
+                      
+                      LINUX: if you're like me and on a version of Ubuntu (shout out zorin core), then grab .deb. others, grab .tar.gz since that's the only one i remember lmfao
                   make_latest: true
                   fail_on_unmatched_files: true
                   files: dist-all/**/*

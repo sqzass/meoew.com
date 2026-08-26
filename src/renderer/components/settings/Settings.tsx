@@ -18,6 +18,7 @@ import { DeveloperOptionsButton } from "./DeveloperOptions";
 import { DiscordBranchPicker } from "./DiscordBranchPicker";
 import { NotificationBadgeToggle } from "./NotificationBadgeToggle";
 import { OutdatedVesktopWarning } from "./OutdatedVesktopWarning";
+import { ThemeToggles } from "./ThemingControls";
 import { UpdatesButtons } from "./Updates";
 import { UserAssetsButton } from "./UserAssets";
 import { VesktopSettingsSwitch } from "./VesktopSettingsSwitch";
@@ -37,6 +38,7 @@ export type SettingsComponent = ComponentType<{ settings: typeof Settings.store 
 
 const SettingsOptions: Record<string, Array<BooleanSetting | SettingsComponent>> = {
     Updates: [UpdatesButtons],
+    Theming: [ThemeToggles],
     "Discord Branch": [DiscordBranchPicker],
     "System Startup & Performance": [
         AutoStartToggle,

@@ -18,7 +18,13 @@ import { VesktopSettingsIcon } from "@vencord/types/components";
 import SettingsUi from "./components/settings/Settings";
 import { VesktopLogger } from "./logger";
 import { Settings } from "./settings";
+import { initTheme } from "./theme";
+import { initThemePrompt } from "./themePrompt";
 export { Settings };
+
+initTheme();
+initThemePrompt();
+
 
 VesktopLogger.log("read if cute :3");
 VesktopLogger.log("Meoew.com v" + VesktopNative.app.getVersion());
