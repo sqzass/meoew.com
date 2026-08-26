@@ -54,12 +54,25 @@
 <body>
     <div class="wrapper">
         <img draggable="false" src="vesktop://assets/splash" alt="" role="presentation" />
-        <p>Loading meoew.com...</p>
+        <p id="loading-message">Loading meoew.com...</p>
         <p class="message"></p>
     </div>
 </body>
 
 <script>
+    const LOADING_MESSAGES = [
+        "Loading meoew.com...",
+        "Meowing...",
+        "Feeding the cat...",
+        "Untangling yarn...",
+        "Convincing Discord to unban me...",
+        "do any of you read this",
+        "Doiking my sub... (pause)"
+    ];
+
+    document.getElementById("loading-message").textContent =
+        LOADING_MESSAGES[Math.floor(Math.random() * LOADING_MESSAGES.length)];
+
     document.addEventListener("DOMContentLoaded", () => {
         const messageElement = document.querySelector('.message');
         VesktopSplashNative.onUpdateMessage(message => {
