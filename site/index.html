@@ -6,8 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>meoew.com</title>
     <meta name="description"
-        content="meoew.com. the only mod you'll need. a custom discord desktop app running doiksub." />
+        content="meoew.com. the only mod you'll need. a custom discord desktop app runngin doiksub." />
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f5f0" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#121210" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://meoew.pages.dev/" />
+    <meta property="og:title" content="meoew.com" />
+    <meta property="og:description" content="the only mod you'll need. a custom discord desktop app running doiksub." />
+    <meta property="og:site_name" content="meoew.com" />
+    <meta name="twitter:card" content="summary" />
     <style>
         :root {
             --paper: #f7f5f0;
@@ -126,6 +134,15 @@
             line-height: 1.7;
         }
 
+        pre .cmd {
+            display: block;
+            cursor: pointer;
+        }
+
+        pre .cmd:hover {
+            color: var(--accent);
+        }
+
         pre .prompt {
             color: var(--dim);
             user-select: none;
@@ -135,27 +152,30 @@
             color: var(--dim);
         }
 
-        dl.opts dt {
-            float: left;
-            clear: left;
-            min-width: 13ch;
+        ul {
+            margin: 0 0 1em 1.2em;
         }
 
-        dl.opts dd {
-            margin-bottom: 0.5em;
-            padding-left: 14ch;
+        .dl {
+            margin-top: 1.5rem;
         }
 
-        @media (max-width: 34rem) {
-            dl.opts dt {
-                float: none;
-                min-width: 0;
-            }
+        .dl a {
+            display: inline-block;
+            border: 1px solid var(--ink);
+            padding: 0.55rem 1.1rem;
+            text-decoration: none;
+        }
 
-            dl.opts dd {
-                padding-left: 0;
-                margin-top: 0.1em;
-            }
+        .dl a:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .note {
+            color: var(--dim);
+            font-size: 0.8rem;
+            margin: 0.5rem 0 0;
         }
 
         .refs li {
@@ -204,16 +224,6 @@
         footer a:hover {
             color: var(--accent);
         }
-
-        .blink {
-            animation: blink 1.1s steps(2, start) infinite;
-        }
-
-        @keyframes blink {
-            to {
-                visibility: hidden;
-            }
-        }
     </style>
 </head>
 
@@ -227,14 +237,23 @@
         <section class="hero">
             <h1>the only mod<br />you'll <em>need.</em></h1>
             <p class="sub">a custom discord desktop app. vesktop's body, doiksub's brain, and a cute aesthetic.</p>
+            <p class="dl"><a href="https://github.com/sqzass/meoew.com/releases/latest">download for
+                    <span id="dl-os">your os</span></a></p>
+            <p class="note">probably. changing user-agents mess with this.</p>
         </section>
 
         <h2>about</h2>
         <p>
-            <strong>meoew</strong>, a potentially broken but fun discord client with the
-            <a href="https://github.com/ghxstprey/doiksub">doiksub</a> mod preinstalled.
-            forked from <a href="https://github.com/Vencord/Vesktop">vesktop</a>.
+            <strong>meoew</strong> is what happens when you take vesktop, rip out the useless
+            plugins, wire it straight into <a href="https://github.com/ghxstprey/doiksub">doiksub</a>,
+            and then pray it works. a potentially broken but fun discord client with doiksub
+            preinstalled, forked from <a href="https://github.com/Vencord/Vesktop">vesktop</a>.
         </p>
+        <ul>
+            <li>discord gets nothing about your system it doesn't need</li>
+            <li>linux screenshare with audio, wayland included</li>
+            <li>curated plugin set</li>
+        </ul>
 
         <h2>plugins</h2>
         <p>the plugins are listed on the <a href="https://github.com/ghxstprey/doiksub#plugins">readme</a>, but here's
@@ -242,23 +261,10 @@
             "i have the discord account" videos? yeah, we got that plugin. the most updated version too. message
             loggers, auto-complete quests, avatar grabber, 'whois' as well. basically, vencord + minimal equicord, then
             questionable and definitely abusive plugins sprinkled in.</p>
-        <h2>Description</h2>
-        <p>
-            meoew is what happens when you take vesktop, rip out useless plugins, wire it
-            straight into <a href="https://github.com/ghxstprey/doiksub">doiksub</a> broken
-            builds, and then pray it works.
-        </p>
-        <ul style="margin: 0 0 1em 1.2em">
-            <li>discord gets nothing about your system it doesn't need</li>
-            <li>linux screenshare with audio, wayland included</li>
-            <li>curated plugin set</li>
-        </ul>
 
         <h2>install</h2>
-        <pre><span class="prompt">$</span> git clone https://github.com/sqzass/meoew.com.git
-<span class="prompt">$</span> cd meoew.com
-<span class="prompt">$</span> pnpm i
-<span class="prompt">$</span> pnpm package      <span class="comment">// builds for YOUR specific os, output in <code>dist</code></span></pre>
+        <pre><code class="cmd"><span class="prompt">$ </span>git clone https://github.com/sqzass/meoew.com.git</code><code class="cmd"><span class="prompt">$ </span>cd meoew.com</code><code class="cmd"><span class="prompt">$ </span>pnpm i</code><code class="cmd"><span class="prompt">$ </span>pnpm package<span class="comment"> // builds for YOUR specific os, output in dist</span></code></pre>
+
         <p>
             don't feel like building?
             grab artifacts from the latest
@@ -266,14 +272,14 @@
             windows, macos and linux are built on every push.
         </p>
 
-        <h2>Bugs</h2>
+        <h2>bugs</h2>
         <p>
             surely some. report them at the
             <a href="https://github.com/sqzass/meoew.com/issues">issue tracker</a>,
             or in the discord, whichever you're already open in.
         </p>
 
-        <h2>See also</h2>
+        <h2>see also</h2>
         <ul class="refs">
             <li><a href="https://github.com/ghxstprey/doiksub">doiksub</a> - the mod inside</li>
             <li><a href="https://vencord.dev">vencord</a> - the mod inside the mod</li>
@@ -285,6 +291,33 @@
             <span>all love.</span>
         </footer>
     </main>
+
+    <script>
+        (function () {
+            // platform guess for the download button
+            var ua = navigator.userAgent;
+            var os = "your os";
+            if (!/Mobi/i.test(ua)) {
+                if (/Win/i.test(ua)) os = "windows";
+                else if (/Mac/i.test(ua)) os = "macos";
+                else if (/Linux|X11|CrOS/i.test(ua)) os = "linux";
+            }
+            var label = document.getElementById("dl-os");
+            if (label) label.textContent = os;
+
+            if (!navigator.clipboard) return;
+            document.querySelectorAll("pre .cmd").forEach(function (line) {
+                line.addEventListener("click", function () {
+                    var cmd = line.textContent.replace(/^\$ /, "").replace(/\s+\/\/.*$/, "");
+                    var promptEl = line.querySelector(".prompt");
+                    navigator.clipboard.writeText(cmd).then(function () {
+                        promptEl.textContent = "+ ";
+                        setTimeout(function () { promptEl.textContent = "$ "; }, 800);
+                    });
+                });
+            });
+        })();
+    </script>
 </body>
 
 </html>
