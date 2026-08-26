@@ -1,6 +1,6 @@
 {
     "name": "meoew",
-    "version": "0.2.0-alpha",
+    "version": "0.2.1-alpha",
     "private": true,
     "description": "meoew.com, the only mod you'll need.",
     "keywords": [],
@@ -16,6 +16,7 @@
         "build": "tsx scripts/build/build.mts",
         "build:dev": "pnpm build --dev",
         "buildLibVesktop": "pnpm -C packages/libvesktop install && pnpm -C packages/libvesktop run build",
+        "bump": "node scripts/bumpVersion.mjs",
         "package": "pnpm build && electron-builder",
         "package:dir": "pnpm build && electron-builder --dir",
         "lint": "eslint",

@@ -15,9 +15,9 @@ export const DiscordBranchPicker: SettingsComponent = ({ settings }) => {
             <Select
                 placeholder="Stable"
                 options={[
-                    { label: "Stable", value: "stable", default: true },
+                    { label: "Stable", value: "stable" },
                     { label: "Canary", value: "canary" },
-                    { label: "PTB", value: "ptb" }
+                    { label: "PTB", value: "ptb", default: true }
                 ]}
                 closeOnSelect={true}
                 select={v => (settings.discordBranch = v)}

@@ -12,17 +12,17 @@ import { Settings } from "shared/settings";
 import { cl, SettingsComponent } from "./Settings";
 
 export const DeveloperOptionsButton: SettingsComponent = ({ settings }) => {
-    return <Button onClick={() => openDeveloperOptionsModal(settings)}>Open Developer Settings</Button>;
+    return <Button onClick={() => openDeveloperOptionsModal(settings)}>open scary settings :thinking:</Button>;
 };
 
 function openDeveloperOptionsModal(settings: Settings) {
     openModal(props => (
-        <Modal {...props} size="lg" title="Vesktop Developer Options">
-            <Heading tag="h4">Vencord Location</Heading>
+        <Modal {...props} size="lg" title="meoew.com developer options">
+            <Heading tag="h4">Doiksub Location</Heading>
             <VencordLocationPicker settings={settings} />
 
             <Heading tag="h4" className={Margins.top16}>
-                Debugging
+                Debugging/Info
             </Heading>
             <div className={cl("button-grid")}>
                 <Button onClick={() => VesktopNative.debug.launchGpu()}>Open chrome://gpu</Button>
@@ -41,7 +41,7 @@ const VencordLocationPicker: SettingsComponent = ({ settings }) => {
     return (
         <>
             <Paragraph>
-                Vencord files are loaded from{" "}
+                doiksub files are loaded from{" "}
                 {usingCustomVencordDir ? (
                     <TextButton
                         variant="link"
@@ -65,7 +65,7 @@ const VencordLocationPicker: SettingsComponent = ({ settings }) => {
                                 break;
                             case "ok":
                                 Toasts.show({
-                                    message: "Vencord install changed. Fully restart Vesktop to apply.",
+                                    message: "doiksub install changed. fully restart meoew.com to apply.",
                                     id: Toasts.genId(),
                                     type: Toasts.Type.SUCCESS
                                 });
@@ -73,7 +73,7 @@ const VencordLocationPicker: SettingsComponent = ({ settings }) => {
                             case "invalid":
                                 Toasts.show({
                                     message:
-                                        "You did not choose a valid Vencord install. Make sure you're selecting the dist dir!",
+                                        "You did not choose a valid doiksub install. make sure you're selecting the dist dir!",
                                     id: Toasts.genId(),
                                     type: Toasts.Type.FAILURE
                                 });
