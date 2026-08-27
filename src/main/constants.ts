@@ -5,7 +5,7 @@
  */
 
 import { app } from "electron";
-import { existsSync, mkdirSync } from "fs";
+import { mkdirSync, readdirSync } from "fs";
 import { dirname, join } from "path";
 
 import { CommandLine } from "./cli";
@@ -15,7 +15,9 @@ const vesktopDir = dirname(process.execPath);
 export const PORTABLE =
     process.platform === "win32" &&
     !process.execPath.toLowerCase().endsWith("electron.exe") &&
-    !existsSync(join(vesktopDir, "Uninstall Meoew.com.exe"));
+    // match any uninstaller; it's named after executableName, not productName,
+    // so a hardcoded string breaks and installed builds silently become "portable"
+    !readdirSync(vesktopDir).some(file => /^uninstall.+\.exe$/i.test(file));
 
 export const DATA_DIR =
     process.env.VENCORD_USER_DATA_DIR || (PORTABLE ? join(vesktopDir, "Data") : join(app.getPath("userData")));

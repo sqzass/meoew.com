@@ -1,6 +1,6 @@
 {
     "name": "meoew",
-    "version": "0.4.1-alpha",
+    "version": "0.4.2-alpha",
     "private": true,
     "description": "meoew.com, the only mod you'll need.",
     "keywords": [],
@@ -19,8 +19,8 @@
         "bump": "node scripts/bumpVersion.mjs",
         "package": "pnpm build && electron-builder",
         "package:dir": "pnpm build && electron-builder --dir",
-        "lint": "eslint",
-        "lint:fix": "pnpm lint --fix",
+        "eslint": "eslint",
+        "lint": "pnpm eslint --fix",
         "start": "pnpm build && electron .",
         "start:dev": "pnpm build:dev && electron .",
         "start:watch": "pnpm build:dev && tsx scripts/startWatch.mts",
